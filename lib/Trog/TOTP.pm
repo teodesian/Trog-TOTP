@@ -423,8 +423,8 @@ sub _gen_secret {
 
     my $secret;
     ## no critic (Variables::RequireLexicalLoopIterators)
-    for ( 0 .. int( rand($length) ) + $length ) {
-        $secret .= join '', ( '/', 1 .. 9, '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', 'A' .. 'H', 'J' .. 'N', 'P' .. 'Z', 'a' .. 'h', 'm' .. 'z' )[ rand 58 ];
+    for ( 0 .. int( Crypt::PRNG::rand($length) ) + $length ) {
+        $secret .= join '', ( '/', 1 .. 9, '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', 'A' .. 'H', 'J' .. 'N', 'P' .. 'Z', 'a' .. 'h', 'm' .. 'z' )[ int(Crypt::PRNG::rand(58)) ];
     }
     if ( length($secret) > ( $length + 1 ) ) {
         $self->_debug_print( "have len " . length($secret) . " ($secret) so cutting down" );
