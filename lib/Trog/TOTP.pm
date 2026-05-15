@@ -12,6 +12,7 @@ use Ref::Util qw{is_coderef is_hashref};
 use Digest::SHA();
 use Encode::Base2N();
 use List::Util qw{first};
+use Crypt::PRNG();
 use POSIX qw{floor};
 
 use Carp::Always;
