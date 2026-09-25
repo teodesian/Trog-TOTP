@@ -41,4 +41,9 @@ jobs:
         if: ${{ matrix.coverage }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: dzil cover -test -report Coveralls
+        run: |
+          cpanm -n Devel::Cover Devel::Cover::Report::Coveralls
+          dzil build --in .build/cover
+          cd .build/cover
+          perl Makefile.PL && make
+          cover -test -report Coveralls
