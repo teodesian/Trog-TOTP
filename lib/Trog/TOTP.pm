@@ -176,7 +176,7 @@ sub _initialize {
     $self->_valid_algorithm();
     $self->_valid_when();
     $self->_valid_tolerance();
-    $self->_valid_secret();
+    $self->_valid_secret( @{$self}{qw{secret base32secret}} );
 
     return $self;
 }
