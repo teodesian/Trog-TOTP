@@ -10,7 +10,7 @@ use v5.14.0;    # Before 5.006, v5.10.0 would not be understood.
 
 use Ref::Util qw{is_coderef is_hashref};
 use Digest::SHA();
-use Encode::Base2N();
+use MIME::Base32();
 use List::Util qw{first};
 use Crypt::PRNG();
 use POSIX qw{floor};
@@ -295,11 +295,11 @@ sub _valid_secret {
         $self->{secret} = $secret;
     }
     elsif ($base32secret) {
-        $self->{secret} = Encode::Base2N::decode_base32($base32secret);
+        $self->{secret} = MIME::Base32::decode_base32($base32secret);
     }
     else {
         if ( defined( $self->{base32secret} ) ) {
-            $self->{secret} = Encode::Base2N::decode_base32( $self->{base32secret} );
+            $self->{secret} = MIME::Base32::decode_base32( $self->{base32secret} );
         }
         else {
             if ( defined( $self->{algorithm} ) ) {
@@ -319,7 +319,7 @@ sub _valid_secret {
         }
     }
 
-    $self->{base32secret} = Encode::Base2N::encode_base32( $self->{secret} );
+    $self->{base32secret} = MIME::Base32::encode_base32( $self->{secret} );
     1;
 }
 
