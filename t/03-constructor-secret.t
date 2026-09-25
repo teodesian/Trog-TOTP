@@ -14,8 +14,8 @@ is( $totp->base32secret, 'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ', 'and its base32 for
 is( $totp->expected_totp_code(59),         '94287082', 'so the code at 59 is the one RFC 6238 gives' );
 is( $totp->expected_totp_code(1111111109), '07081804', 'and at 1111111109' );
 
-my $both = Trog::TOTP->new( secret => $secret, base32secret => 'MZXW6YTBOI' );
-is( $both->secret, $secret, 'given both, the secret wins, as it does for the methods' );
+my $both = Trog::TOTP->new( secret => 'not this one', base32secret => 'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ' );
+is( $both->secret, $secret, 'given both, base32secret wins, as it always has, so no caller that passes both sees a change' );
 
 my $base32 = Trog::TOTP->new( base32secret => 'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ' );
 is( $base32->secret, $secret, 'new(base32secret => ...) still decodes to the secret' );
