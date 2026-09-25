@@ -176,7 +176,9 @@ sub _initialize {
     $self->_valid_algorithm();
     $self->_valid_when();
     $self->_valid_tolerance();
-    $self->_valid_secret();
+    # base32secret, if given, wins over secret, as it always has in the
+    # constructor.  secret alone is kept rather than replaced by a random one.
+    $self->_valid_secret( ( defined $self->{base32secret} ? undef : $self->{secret} ), $self->{base32secret} );
 
     return $self;
 }
